@@ -38,7 +38,18 @@ function Connect-WS1 {
     write-host "Connected to $($workSpaceOne.serverURL)`n"
 }
 
-Function Get-WS1ApiCrediential {
+function Disconnect-WS1 {
+    Remove-ItemProperty -Path $workSpaceOne.registryURL -Name serverURL | Out-Null
+    Remove-ItemProperty -Path $workSpaceOne.registryURL -Name apiCredential | Out-Null
+    Remove-ItemProperty -Path $workSpaceOne.registryURL -Name apiKey | Out-Null
+    Remove-ItemProperty -Path $workSpaceOne.registryURL -Name orgId | Out-Null
+    $workSpaceOne.serverURL = $null
+    $workSpaceOne.apiCredential = $null
+    $workSpaceOne.apiKey = $null
+    $workSpaceOne.orgId = $null
+}
+
+function Get-WS1ApiCrediential {
     # Contruct REST HEADER
     $restHeader = @{
         "Authorization"  = "Basic $($workSpaceOne.apiCredential)";
@@ -50,7 +61,7 @@ Function Get-WS1ApiCrediential {
 }
 
 # Returns Workspace ONE UEM Console Version
-Function Get-WS1ConsoleVersion {
+function Get-WS1ConsoleVersion {
     [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $endpointURL = $workSpaceOne.serverURL + "/system/info"
@@ -61,7 +72,7 @@ Function Get-WS1ConsoleVersion {
 }
 
 # Returns devices under management
-Function Get-WS1Device {
+function Get-WS1Device {
     param(
         [Parameter(Mandatory=$false,ValueFromPipeline=$true)][string]$deviceID
     )
@@ -82,7 +93,7 @@ Function Get-WS1Device {
 }
 
 # Returns Organization Group by Name
-Function Get-WS1OrgGroup {
+function Get-WS1OrgGroup {
     param(
         [Parameter(Mandatory=$false,ValueFromPipeline=$true)][string]$orgGroupName
     )
@@ -98,7 +109,7 @@ Function Get-WS1OrgGroup {
     $response.LocationGroups
 }
 
-Function Get-WS1Tag {
+function Get-WS1Tag {
     param(
         [Parameter(Mandatory=$false,ValueFromPipeline=$true)][string]$tagName
     )
@@ -115,7 +126,7 @@ Function Get-WS1Tag {
     $response.tags
 }
 
-Function Get-WS1TaggedDevice {
+function Get-WS1TaggedDevice {
     param(
         [Parameter(Mandatory=$true,ValueFromPipeline=$true)][string]$tagId
     )
@@ -127,7 +138,7 @@ Function Get-WS1TaggedDevice {
     $response.device
 }
 
-Function New-WS1Tag {
+function New-WS1Tag {
 param(
         [Parameter(Mandatory=$true,ValueFromPipeline=$true)][string]$tagName
     )
@@ -148,7 +159,7 @@ param(
     $response
 }
 
-Function Add-WS1DeviceTag {
+function Add-WS1DeviceTag {
     param(
         [Parameter(Mandatory=$true,ValueFromPipeline=$true)][string]$deviceId,
         [Parameter(Mandatory=$true)][string]$tagId
