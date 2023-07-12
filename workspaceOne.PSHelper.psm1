@@ -100,7 +100,7 @@ function Get-WS1OrgGroup {
     [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     if ($orgGroupName) {
-        $endpointURL = $workSpaceOne.serverURL + "/system/groups/search/?groupid=" + $workspaceONEOrgGroupName
+        $endpointURL = $workSpaceOne.serverURL + "/system/groups/search/?groupid=" + $orgGroupName
     } else {
     $endpointURL = $workSpaceOne.serverURL + "/system/groups/search"
     }
