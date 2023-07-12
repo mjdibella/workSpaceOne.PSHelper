@@ -1,0 +1,4 @@
+Get a list of enrolled devices using AT&T as carrier:
+Get-WS1Device | where {$_.DeviceCellularNetworkInfo.CarrierName -eq 'AT&T' -and $_.EnrollmentStatus -ne 'Unenrolled'}
+
+
