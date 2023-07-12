@@ -1,0 +1,30 @@
+﻿Connect-WS1: connect to WorkSpace ONE and save encrypted credentials in registry
+	-serverURL mandatory, URL of Workspace One API host to connect to
+	-apiUser mandatory, username of api with required api permissions
+	-apiKey mandatory, api key
+    -orgId Organization Group Name to target
+
+Disconnect-WS1: clears cached API credentials
+
+Get-WS1ApiCrediential: retrieves HTTP header for API invocation
+
+Get-WS1ConsoleVersion: retreived Workspace One console version
+
+Get-WS1Device: retrieve managed device information
+	-deviceId optional, deviceId of single device, otherwise returns all managed devices
+
+Get-WS1OrgGroup: retrieve organization group information
+    -orgGroupName optional, name of single group, otherwise returns all groups
+
+Get-WS1Tag: retrieve smart tag information
+    -tagName optional, name of single smart tag, otherwise returns all tags
+
+Get-WS1TaggedDevice: retrieve list of devices containing a specified smart tag
+    -tagId mandatory, id of smart tag
+
+New-WS1Tag: creates a new smart tag
+    -tagName mandatory, name of smart tag
+
+Add-WS1DeviceTag: adds specified smart tag to specified smart tag
+    -deviceId mandatory, id of device to add tag to
+    -tagId mandatory, id of tag to add
