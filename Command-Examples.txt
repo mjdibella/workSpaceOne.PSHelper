@@ -9,5 +9,3 @@ Get a smart tag ID
 
 Tag all enrolled devices using AT&T as carrier with smart tag with ID 488177
 (Get-WS1Device | where {$_.DeviceCellularNetworkInfo.CarrierName -eq 'AT&T' -and $_.EnrollmentStatus -ne 'Unenrolled'}).Id.Value | foreach {Add-WS1DeviceTag -deviceId $_ -tagId 488177}
-
-
