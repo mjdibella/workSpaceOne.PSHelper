@@ -1,4 +1,10 @@
 Get a list of enrolled devices using AT&T as carrier:
 Get-WS1Device | where {$_.DeviceCellularNetworkInfo.CarrierName -eq 'AT&T' -and $_.EnrollmentStatus -ne 'Unenrolled'}
 
+Add smart tag "ATT Network" to database
+New-WS1Tag -tagName "ATT Network"
+
+Tag all enrolled devices using AT&T as carrier with smart tag "ATT Network"
+(Get-WS1Device | where {$_.DeviceCellularNetworkInfo.CarrierName -eq 'AT&T' -and $_.EnrollmentStatus -ne 'Unenrolled'}).Id.Value | foreach {Add-WS1DeviceTag -deviceId $_ -tagId (Get-WS1Tag -tagName "ATT Network").Id.Value}
+
 
